@@ -5,13 +5,21 @@
         "penulis": "Tere Liye",
         "tahun": 2020,
         "kategori": "Fiksi",
-        "status": "Tersedia"
+        "status": "Dipinjam"
     },
     {
         "id_buku": "02",
         "judul": "Hujan",
         "penulis": "Tere Liye",
         "tahun": 2023,
+        "kategori": "Fiksi",
+        "status": "Tersedia"
+    },
+    {
+        "id_buku": "03",
+        "judul": "Rumah",
+        "penulis": "J.S. Khairen",
+        "tahun": 2024,
         "kategori": "Fiksi",
         "status": "Tersedia"
     }
