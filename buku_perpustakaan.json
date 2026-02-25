@@ -1,0 +1,18 @@
+[
+    {
+        "id_buku": "01",
+        "judul": "Sunset & Rosie",
+        "penulis": "Tere Liye",
+        "tahun": 2020,
+        "kategori": "Fiksi",
+        "status": "Tersedia"
+    },
+    {
+        "id_buku": "02",
+        "judul": "Hujan",
+        "penulis": "Tere Liye",
+        "tahun": 2023,
+        "kategori": "Fiksi",
+        "status": "Tersedia"
+    }
+]
