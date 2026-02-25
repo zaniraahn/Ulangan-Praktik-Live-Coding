@@ -34,9 +34,7 @@ def main_menu():
     console.print("[6] Peminjaman Buku")
     console.print("[7] Pengembalian Buku")
     console.print("[8] Keluar")
-    console.print("[9] Lihat Buku Tersedia")
-    console.print("[10] Lihat Buku Dipinjam")
-    choice = IntPrompt.ask("\nPilih menu", choices=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
+    choice = IntPrompt.ask("\nPilih menu", choices=["1", "2", "3", "4", "5", "6", "7", "8"])
     return choice
 
 # Fungsi untuk menambah buku
@@ -64,28 +62,21 @@ def tambah_buku(data):
 # Fungsi untuk melihat daftar buku
 def lihat_daftar_buku(data):
     console.print("\n[bold cyan]Daftar Buku[/bold cyan]")
-    if not data:
-        console.print("[red]Tidak ada buku dalam daftar.[/red]")
-        return
-
-    table = Table(title="Daftar Buku Perpustakaan")
-    table.add_column("ID Buku", style="cyan", no_wrap=True)
-    table.add_column("Judul", style="magenta")
-    table.add_column("Penulis", style="green")
-    table.add_column("Tahun", justify="right")
-    table.add_column("Kategori", style="yellow")
-    table.add_column("Status", style="red")
-
-    for buku in data:
-        table.add_row(
-            buku["id_buku"],
-            buku["judul"],
-            buku["penulis"],
-            str(buku["tahun"]),
-            buku["kategori"],
-            buku["status"]
-        )
-    console.print(table)
+    console.print("Pilih filter:")
+    console.print("[1] Semua Buku")
+    console.print("[2] Buku Tersedia")
+    console.print("[3] Buku Tidak Tersedia")
+    choice = IntPrompt.ask("Pilih", choices=["1","2","3"])
+    if choice == 1:
+        filtered = data
+        title = "Daftar Buku Perpustakaan"
+    elif choice == 2:
+        filtered = [b for b in data if b["status"] == "Tersedia"]
+        title = "Daftar Buku Tersedia"
+    elif choice == 3:
+        filtered = [b for b in data if b["status"] == "Tidak Tersedia"]
+        title = "Daftar Buku Tidak Tersedia"
+    display_table(filtered, title)
 
 # Fungsi untuk edit buku
 def edit_buku(data):
@@ -150,11 +141,11 @@ def peminjaman_buku(data):
     for buku in data:
         if buku["id_buku"] == id_buku:
             if buku["status"] == "Tersedia":
-                buku["status"] = "Dipinjam"
+                buku["status"] = "Tidak Tersedia"
                 save_data(data)
                 console.print("[green]Buku berhasil dipinjam![/green]")
             else:
-                console.print("[red]Buku sedang dipinjam.[/red]")
+                console.print("[red]Buku tidak tersedia.[/red]")
             return
     console.print("[red]Buku dengan ID tersebut tidak ditemukan.[/red]")
 
@@ -164,7 +155,7 @@ def pengembalian_buku(data):
     id_buku = Prompt.ask("Masukkan ID Buku yang ingin dikembalikan")
     for buku in data:
         if buku["id_buku"] == id_buku:
-            if buku["status"] == "Dipinjam":
+            if buku["status"] == "Tidak Tersedia":
                 buku["status"] = "Tersedia"
                 save_data(data)
                 console.print("[green]Buku berhasil dikembalikan![/green]")
@@ -173,15 +164,13 @@ def pengembalian_buku(data):
             return
     console.print("[red]Buku dengan ID tersebut tidak ditemukan.[/red]")
 
-# Fungsi untuk melihat buku tersedia
-def lihat_buku_tersedia(data):
-    console.print("\n[bold cyan]Daftar Buku Tersedia[/bold cyan]")
-    filtered = [buku for buku in data if buku["status"] == "Tersedia"]
-    if not filtered:
-        console.print("[red]Tidak ada buku tersedia.[/red]")
+# Fungsi helper untuk menampilkan tabel
+def display_table(data, title):
+    if not data:
+        console.print("[red]Tidak ada buku.[/red]")
         return
 
-    table = Table(title="Daftar Buku Tersedia")
+    table = Table(title=title)
     table.add_column("ID Buku", style="cyan", no_wrap=True)
     table.add_column("Judul", style="magenta")
     table.add_column("Penulis", style="green")
@@ -189,34 +178,7 @@ def lihat_buku_tersedia(data):
     table.add_column("Kategori", style="yellow")
     table.add_column("Status", style="red")
 
-    for buku in filtered:
-        table.add_row(
-            buku["id_buku"],
-            buku["judul"],
-            buku["penulis"],
-            str(buku["tahun"]),
-            buku["kategori"],
-            buku["status"]
-        )
-    console.print(table)
-
-# Fungsi untuk melihat buku dipinjam
-def lihat_buku_dipinjam(data):
-    console.print("\n[bold cyan]Daftar Buku Dipinjam[/bold cyan]")
-    filtered = [buku for buku in data if buku["status"] == "Dipinjam"]
-    if not filtered:
-        console.print("[red]Tidak ada buku yang sedang dipinjam.[/red]")
-        return
-
-    table = Table(title="Daftar Buku Dipinjam")
-    table.add_column("ID Buku", style="cyan", no_wrap=True)
-    table.add_column("Judul", style="magenta")
-    table.add_column("Penulis", style="green")
-    table.add_column("Tahun", justify="right")
-    table.add_column("Kategori", style="yellow")
-    table.add_column("Status", style="red")
-
-    for buku in filtered:
+    for buku in data:
         table.add_row(
             buku["id_buku"],
             buku["judul"],
@@ -249,11 +211,6 @@ def main():
         elif choice == 8:
             console.print("[bold blue]Terima kasih telah menggunakan aplikasi![/bold blue]")
             break
-        elif choice == 9:
-            lihat_buku_tersedia(data)
-        elif choice == 10:
-            lihat_buku_dipinjam(data)
         console.print("\n" + "="*50 + "\n")
 
 if __name__ == "__main__":
-    main()1

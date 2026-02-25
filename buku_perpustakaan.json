@@ -13,7 +13,7 @@
         "penulis": "Tere Liye",
         "tahun": 2023,
         "kategori": "Fiksi",
-        "status": "Tersedia"
+        "status": "Tidak Tersedia"
     },
     {
         "id_buku": "03",
@@ -21,6 +21,38 @@
         "penulis": "J.S. Khairen",
         "tahun": 2024,
         "kategori": "Fiksi",
+        "status": "Tersedia"
+    },
+    {
+        "id_buku": "11",
+        "judul": "Sapi Sebagai Hewan Ternak",
+        "penulis": "Frederick S.",
+        "tahun": 2012,
+        "kategori": "Non-Fiksi",
+        "status": "Tersedia"
+    },
+    {
+        "id_buku": "04",
+        "judul": "Bungkam Suara",
+        "penulis": "J.S. Khairen",
+        "tahun": 2020,
+        "kategori": "Fiksi",
+        "status": "Tidak Tersedia"
+    },
+    {
+        "id_buku": "21",
+        "judul": "Tips Memasak Rendang yang Lezat",
+        "penulis": "Mama Coco",
+        "tahun": 2022,
+        "kategori": "Non-Fiksi/Paduan",
+        "status": "Dipinjam"
+    },
+    {
+        "id_buku": "06",
+        "judul": "Kumpulan Lagu-Lagu Daerah",
+        "penulis": "Soedira",
+        "tahun": 1999,
+        "kategori": "Non-Fiksi",
         "status": "Tersedia"
     }
 ]
